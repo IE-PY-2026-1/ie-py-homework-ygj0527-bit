@@ -2,7 +2,6 @@
 # 작 성 자 : Yeon_Gi_Jeong
 # [스마트 캠퍼스 열람실 통합 예약 시스템]
 
-# [전역 변수 선언] 프로그램 전체 세션에서 유지되는 데이터
 system_name = "캠퍼스 스마트 예약"
 manager_name = "mju_maru"
 current_version = 4.5
@@ -24,20 +23,16 @@ is_booked = False # 예약 성공 여부 플래그
 
 # [함수 정의 영역]
 
-# [함수 1] 사용자 정보 및 학습 목표 설정 (2차 과제 내용 복구)
+# [함수 1] 사용자 정보 및 학습 목표 설정
 def setup_user_profile():
-    # 전역 변수의 값을 함수 내부에서 업데이트하기 위해 global 선언
     global user_name, student_id, subject_list, target_study_time
     
     print("\n" + "-"*15 + " [사용자 정보 및 학습 목표 설정] " + "-"*15)
     user_name = input("예매자 성함: ")
     student_id = int(input("학번 8자리를 입력하세요: "))
     
-    # 오늘 공부할 과목 리스트 입력 (for문과 append 활용)
-    subject_list = []
-    for i in range(3):
-        subject = input(f"오늘 공부할 {i+1}순위 과목명: ")
-        subject_list.append(subject)
+    # 👍 [보완/단축] 리스트 컴프리헨션을 활용하여 과목 입력 로직을 한 줄로 단축
+    subject_list = [input(f"오늘 공부할 {i+1}순위 과목명: ") for i in range(3)]
         
     # 목표 시간을 입력받아 실수(float) 데이터로 계산
     print("\n목표로 하는 총 공부 시간을 설정합니다.")
@@ -46,17 +41,16 @@ def setup_user_profile():
     target_study_time = float(goal_h + (goal_m / 60))
     
     print(f"오늘의 목표 시간은 {target_study_time:.1f}시간으로 설정되었습니다.")
-    return target_study_time # 처리 결과를 return으로 반환
+    return target_study_time 
 
 
-# [함수 2] 시/분 데이터를 분 단위 데이터로 환산 (매개변수 및 리턴값 활용)
+# [함수 2] 시/분 데이터를 분 단위 데이터로 환산
 def calculate_minutes(hour, minute):
-    # 시와 분 데이터를 가중치 연산(H * 60)을 통해 전체 분으로 통합
     total_minutes = (hour * 60) + minute
-    return total_minutes # 정제된 분 단위 수치를 리턴
+    return total_minutes 
 
 
-# [함수 3] 좌석 중복 검증 및 예약 확정 (global 키워드 활용)
+# [함수 3] 좌석 중복 검증 및 예약 확정
 def reserve_seat():
     global reserved_seats, booked_room, booked_seat, checkout_h, checkout_m, is_booked
     
@@ -89,19 +83,13 @@ def reserve_seat():
 
     seat_num = int(input(f"\n{room_name} 좌석 번호(1-{max_seats_limit}): "))
     
-    # 관계 연산자 및 논리 연산자(or) 활용
-    if (seat_num < 1) or (seat_num > max_seats_limit):
+    # 👍 [보완/단축] 연속 크기 비교 연산자를 활용하여 조건문 가독성 향상
+    if not (1 <= seat_num <= max_seats_limit):
         print("좌석 운영 범위를 벗어났습니다.")
         return
 
-    # 반복문을 통한 기존 예약 데이터 중복 검증
-    match_count = 0
-    for s in reserved_seats:
-        if s == seat_num:
-            match_count += 1 # 복합 대입 연산자 (+=)
-    
-    # 논리 연산자(not) 활용
-    if not (match_count == 0):
+    # 👍 [보완/단축] 기존의 for 반복문 대조 방식 대신 파이썬 내장 'in' 연산자로 중복 검증 단축
+    if seat_num in reserved_seats:
         print(f"예약 실패: {seat_num}번은 이미 사용 중인 좌석입니다.")
     else:
         # 리스트 조작 내장 함수 및 메소드 4종 활용 (append, sort, len, max)
@@ -138,10 +126,7 @@ def reserve_seat():
         else:
             print("오류: 퇴실 시간이 입실 시간보다 빠를 수 없습니다.")
 
-
-# =========================================================================
 # [메인 로직 영역] while True 무한루프 기반의 키오스크 제어 (목차 구조형)
-# =========================================================================
 
 print(f"[{system_name} v{current_version}] 시스템에 정상 접속했습니다.")
 print(f"시스템 관리자: {manager_name} | 실시간 도서관 혼잡도: {library_congestion}%")
@@ -181,14 +166,14 @@ while True:
             for sub in subject_list:
                 print(f"- {sub}")
                 
-            # 실시간 잔여 시간 연산 피드백 (2차 과제 기능 완벽 통합)
+            # 실시간 잔여 시간 연산 피드백
             print("\n[실시간 잔여 시간 확인]")
             now_h = int(input("현재 시 입력: "))
             now_m = int(input("현재 분 입력: "))
             
             now_total = calculate_minutes(now_h, now_m)
             end_total = calculate_minutes(checkout_h, checkout_m)
-            rem_min = end_total - now_total # 복합 연산
+            rem_min = end_total - now_total 
             
             if rem_min > 0:
                 print(f"▶ [안내] 퇴실까지 {rem_min // 60}시간 {rem_min % 60}분 남았습니다.")
