@@ -8,7 +8,7 @@ manager_name = "mju_maru"
 current_version = 4.5
 library_congestion = 65.5  
 max_seats_limit = 100      
-reserved_seats = [12, 25, 48] # 초기 예약 좌석들
+reserved_seats = [12, 25, 48] 
 
 # 사용자 개인정보 및 예약 세션 저장을 위한 전역 변수
 user_name = ""
