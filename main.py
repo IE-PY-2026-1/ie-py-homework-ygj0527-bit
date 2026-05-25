@@ -83,12 +83,10 @@ def reserve_seat():
 
     seat_num = int(input(f"\n{room_name} 좌석 번호(1-{max_seats_limit}): "))
     
-    # 👍 [보완/단축] 연속 크기 비교 연산자를 활용하여 조건문 가독성 향상
     if not (1 <= seat_num <= max_seats_limit):
         print("좌석 운영 범위를 벗어났습니다.")
         return
 
-    # 👍 [보완/단축] 기존의 for 반복문 대조 방식 대신 파이썬 내장 'in' 연산자로 중복 검증 단축
     if seat_num in reserved_seats:
         print(f"예약 실패: {seat_num}번은 이미 사용 중인 좌석입니다.")
     else:
@@ -165,8 +163,7 @@ while True:
             print("\n--- [오늘 학습 목표 과목] ---")
             for sub in subject_list:
                 print(f"- {sub}")
-                
-            # 실시간 잔여 시간 연산 피드백
+             
             print("\n[실시간 잔여 시간 확인]")
             now_h = int(input("현재 시 입력: "))
             now_m = int(input("현재 분 입력: "))
@@ -179,7 +176,7 @@ while True:
                 print(f"▶ [안내] 퇴실까지 {rem_min // 60}시간 {rem_min % 60}분 남았습니다.")
             else:
                 print("▶ [안내] 설정하신 이용 시간이 이미 만료되어 좌석이 자동 반납되었습니다.")
-                is_booked = False # 세션 초기화
+                is_booked = False 
                 
     elif menu_choice == "4":
         print(f"\n[{manager_name}] 스마트 예약 세션을 안전하게 종료합니다. 목표 달성을 응원합니다!")
