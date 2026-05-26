@@ -31,7 +31,7 @@ def setup_user_profile():
     user_name = input("예매자 성함: ")
     student_id = int(input("학번 8자리를 입력하세요: "))
     
-    # 👍 [보완/단축] 리스트 컴프리헨션을 활용하여 과목 입력 로직을 한 줄로 단축
+    # 리스트 활용을 통한 과목 입력 로직을 한 줄로 단축
     subject_list = [input(f"오늘 공부할 {i+1}순위 과목명: ") for i in range(3)]
         
     # 목표 시간을 입력받아 실수(float) 데이터로 계산
