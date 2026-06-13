@@ -1,4 +1,4 @@
-# 파일이름 : task_2_60232296
+# 파일이름 : last_homework_60232296
 # 작 성 자 : Yeon_Gi_Jeong
 # [스마트 캠퍼스 열람실 통합 예약 시스템]
 
@@ -230,7 +230,7 @@ while True:
     elif menu_choice == "4":
         print(f"\n[{manager_name}] 스마트 예약 세션을 안전하게 종료 프로세스를 시작합니다.")
         
-        # with open()을 사용하여 이중 리스트 데이터를 텍스트 파일로 저장(Write)
+        # with open()을 사용하여 이중 리스트 데이터를 텍스트 파일로 저장
         try:
             with open("reservation_log.txt", "w", encoding="utf-8") as f:
                 # 헤더 타이틀 작성
