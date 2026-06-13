@@ -64,7 +64,6 @@ def calculate_minutes(hour, minute):
     total_minutes = (hour * 60) + minute
     return total_minutes 
 
-
 # 좌석 중복 검증 및 예약 확정
 def reserve_seat():
     global reserved_seats, booked_room, booked_seat, checkout_h, checkout_m, is_booked, all_reservations
