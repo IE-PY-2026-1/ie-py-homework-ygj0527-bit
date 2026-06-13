@@ -59,7 +59,6 @@ def setup_user_profile():
     print(f"오늘의 목표 시간은 {target_study_time:.1f}시간으로 설정되었습니다.")
     return target_study_time 
 
-
 # 시/분 데이터를 분 단위 데이터로 환산 (기존 유지)
 def calculate_minutes(hour, minute):
     total_minutes = (hour * 60) + minute
